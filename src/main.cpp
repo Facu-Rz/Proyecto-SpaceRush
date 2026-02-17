@@ -3,6 +3,19 @@
 // ====================================
 
 
+#include "platform/sdl/init.hpp"
+#include "platform/sdl/graphics.hpp"
+#include "utilities/vector2D.hpp"
+#include "utilities/random.hpp"
+#include "core/time.hpp"
+#include "core/input.hpp"
+#include "entities/player.hpp"
+#include "entities/projectile.hpp"
+#include "systems/collisions.hpp"
+#include "systems/spawn_projectile.hpp"
+#include "core/ui.hpp"
+#include "game/game.hpp"
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
@@ -18,26 +31,26 @@ using namespace std;
 // ====================================
 
 
-enum class GameState {
+/*enum class GameState {
     Playing,
     GameOver,
-};
+};*/
 
-enum class ProjectileType {
+/*enum class ProjectileType {
     Small,
     Medium,
     Big
-};
+};*/
 
-struct GameClock {
+/*struct GameClock {
     Uint32 lastTime = 0;
     float deltaTime = 0.0f;
     float playingTime = 0.0f;
 
     void reset(){
         lastTime = SDL_GetTicks();
-        float deltaTime = 0.0f;
-        float playingTime = 0.0f;
+        deltaTime = 0.0f;
+        playingTime = 0.0f;
     }
 
     void update(){
@@ -46,14 +59,14 @@ struct GameClock {
         playingTime += deltaTime;
         lastTime = currentTime; 
     }
-};
+};*/
 
-struct Vector2D {
+/*struct Vector2D {
     float x;
     float y;
-};
+};*/
 
-struct Player {
+/*struct Player {
     SDL_Rect rectPlayer;
 
     Vector2D position;
@@ -61,9 +74,9 @@ struct Player {
     float speed;
 
     bool alive;
-};
+};*/
 
-struct Projectile {
+/*struct Projectile {
     SDL_Rect rectProjectile;
 
     Vector2D position;
@@ -74,7 +87,7 @@ struct Projectile {
     Uint32 liveTime;
     bool alive;
     ProjectileType type;
-};
+};*/
 
 
 // ====================================
@@ -82,13 +95,13 @@ struct Projectile {
 // ====================================
 
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
-const float SCORE_RATE = 10.0f;
+//const int SCREEN_WIDTH = 800;
+//const int SCREEN_HEIGHT = 600;
+//const float SCORE_RATE = 10.0f;
 Uint32 appTime = 0;
 
-GameState gameState = GameState::Playing;
-GameClock gameClock;
+//GameState gameState = GameState::Playing;
+//GameClock gameClock;
 
 
 // ====================================
@@ -96,17 +109,17 @@ GameClock gameClock;
 // ====================================
 
 
-static mt19937& getGenerator();
+/*static mt19937& getGenerator();
 
-int randomInt(int min, int max);
+int randomInt(int min, int max);*/
 
-Vector2D normalize(const Vector2D& vector);
+/*Vector2D normalize(const Vector2D& vector);
 
 Vector2D sumVector(const Vector2D& a, const Vector2D& b);
 
 Vector2D subVector(const Vector2D& a, const Vector2D& b);
 
-Vector2D multScalar(const Vector2D& vector, float scalar);
+Vector2D multScalar(const Vector2D& vector, float scalar);*/
 
 
 // ====================================
@@ -114,11 +127,11 @@ Vector2D multScalar(const Vector2D& vector, float scalar);
 // ====================================
 
 
-ProjectileType randomType();
+//ProjectileType randomType();
 
-Projectile createProjectile(ProjectileType type);
+//Projectile createProjectile(ProjectileType type);
 
-Player createPlayer();
+//Player createPlayer();
 
 
 // ====================================
@@ -126,11 +139,11 @@ Player createPlayer();
 // ====================================
 
 
-void renderProjectile(vector<Projectile>& projectiles, SDL_Renderer* renderer);
+//void renderProjectile(vector<Projectile>& projectiles, SDL_Renderer* renderer);
 
-void renderPlayer(Player& player, SDL_Renderer* renderer);
+//void renderPlayer(Player& player, SDL_Renderer* renderer);
 
-void renderScore(SDL_Renderer* renderer, TTF_Font* fontScore, float score);
+//void renderScore(SDL_Renderer* renderer, TTF_Font* fontScore, float score);
 
 
 // ====================================
@@ -138,9 +151,11 @@ void renderScore(SDL_Renderer* renderer, TTF_Font* fontScore, float score);
 // ====================================
 
 
-void renderGameOver(SDL_Renderer* renderer, TTF_Font* fontGameOver, TTF_Font* fontHint, float finalScore);
+//void renderGameOver(SDL_Renderer* renderer, TTF_Font* fontGameOver, TTF_Font* fontHint, float finalScore);
 
-void resetGame(vector<Projectile>& projectiles, Player& player, float& score);
+//void resetGame(Game& game);
+
+void gameOverEvents(SDL_Event& event, Game& game);
 
 
 // ====================================
@@ -148,21 +163,19 @@ void resetGame(vector<Projectile>& projectiles, Player& player, float& score);
 // ====================================
 
 
-void projectileSpawnSystem(vector<Projectile>& projectiles, Uint32 currentTime, const Uint32 intervalSpawn);
+//void projectileSpawnSystem(vector<Projectile>& projectiles, Uint32 currentTime, const Uint32 intervalSpawn);
 
-void spawnProjectile(vector<Projectile>& projectiles);
+//void spawnProjectile(vector<Projectile>& projectiles);
 
-void updateProjectile(vector<Projectile>& projectiles, Player& player, float deltaTime);
+//void updateProjectile(vector<Projectile>& projectiles, Player& player, float deltaTime);
 
-void playerInputs(Player& player);
+//void playerInputs(Player& player);
 
-void updatePlayer(Player& player, float deltaTime);
+//void updatePlayer(Player& player, float deltaTime);
 
-void checkProjectileDeath(Projectile& projectile, Player& player);
+//void checkProjectileDeath(Projectile& projectile, Player& player);
 
-void updateScore(float& score, float deltaTime);
-
-void gameOverEvents(SDL_Event& event, vector<Projectile>& projectiles, Player& player, float& score);
+//void updateScore(float& score, float deltaTime);
 
 
 int main(int argc, char* argv[]){
@@ -170,15 +183,9 @@ int main(int argc, char* argv[]){
     //    Inicializacion de herramientas
     // ====================================
 
-
-    if (SDL_Init(SDL_INIT_VIDEO) !=0){
-        cout << "Error al inicializar SDL: " << SDL_GetError() << endl;
+    
+    if (!initPlatform()){
         return 1;
-    }
-
-    //Inicializo el sistema de texto
-    if (TTF_Init() == -1){
-        cout << "Error al inicializar TTF: " << TTF_GetError() << endl;
     }
 
 
@@ -187,7 +194,15 @@ int main(int argc, char* argv[]){
     // ====================================
 
 
-    SDL_Window* window = SDL_CreateWindow("Space Rush",
+    Graphics graphics;
+
+    if(!initGraphics(graphics)){
+        destroyGraphics(graphics);
+        quitPlatform();
+        return 1;
+    }
+
+    /*SDL_Window* window = SDL_CreateWindow("Space Rush",
     SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
 
     if(!window){
@@ -212,7 +227,7 @@ int main(int argc, char* argv[]){
     }
 
     //Activo modo mezcla para interaccion de colores
-    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);*/
 
 
     // ====================================
@@ -220,8 +235,10 @@ int main(int argc, char* argv[]){
     // ====================================
 
 
-    vector<Projectile> projectiles;
-    Player player= createPlayer();
+    //vector<Projectile> projectiles;
+    //Player player= createPlayer();
+    Game game;
+    game.player = createPlayer();
 
     //Implementacion del Loop principal (mostrar ventana)
     bool running = true;
@@ -230,10 +247,10 @@ int main(int argc, char* argv[]){
     //Lapso de tiempo al imprimir el reloj
     Uint32 lastPrint= 0;
     const Uint32 intervalPrint= 1000;
-    const Uint32 intervalSpawn= 250;   
+    const float intervalSpawn= 250;   
 
     //Propiedades de puntuacion
-    float score= 0.0f;
+    //float score= 0.0f;
     float finalScore= 0.0f;
 
 
@@ -242,53 +259,68 @@ int main(int argc, char* argv[]){
     // ====================================
 
 
+    auto& player = game.player;
+    auto& projectiles = game.projectiles;
+    auto& deltaTime = game.gameClock.deltaTime;
+
     while (running){
-        while (SDL_PollEvent(&event)){
+        /*while (SDL_PollEvent(&event)){
             if (gameState == GameState::GameOver){
                 gameOverEvents(event, projectiles, player, score);
             } 
 
-            //Evento de cerrar ventana
-            if (event.type == SDL_QUIT) running = false;
-        }
+            //if (event.type == SDL_QUIT) running = false;
+
+            if (events.reset && gameState == GameState::GameOver) resetGame();
+        }*/
+
+        InputEvent events= pollInputEvent();
+
+        if (events.quit) running = false;
+
+        if (events.reset && game.gameState == GameState::GameOver) resetGame(game);
 
         //Limpio la pantalla con color de fondo (Sistema RGB)
-        SDL_SetRenderDrawColor(renderer, 91, 91, 91, 255);
-        SDL_RenderClear(renderer);
+        SDL_SetRenderDrawColor(graphics.renderer, 91, 91, 91, 255);
+        SDL_RenderClear(graphics.renderer);
 
-        if (gameState == GameState::Playing){
+        if (game.gameState == GameState::Playing){
             appTime= SDL_GetTicks();
-            gameClock.update();
+            game.gameClock.update();
 
             if (appTime - lastPrint >= intervalPrint){
                 cout << "Tiempo global: " << appTime / 1000 << "s" << endl;
                 lastPrint += intervalPrint;
             }
 
-            playerInputs(player);
+            InputState state= getInputState();
 
-            updatePlayer(player, gameClock.deltaTime);
+            //playerInputs(player);
 
-            renderPlayer(player, renderer);
+            updatePlayer(player, deltaTime, state);
 
-            projectileSpawnSystem(projectiles, appTime, intervalSpawn);
+            renderPlayer(player, graphics.renderer);
 
-            updateProjectile(projectiles, player, gameClock.deltaTime);
+            projectileSpawnSystem(appTime, projectiles, intervalSpawn);
+
+            updateProjectile(projectiles, player, deltaTime);
             
-            renderProjectile(projectiles, renderer);
+            renderProjectile(projectiles, graphics.renderer);
 
-            updateScore(score, gameClock.deltaTime);
+            updateScore(game.score, deltaTime);
 
-            renderScore(renderer, fontScore, score);
+            renderScore(graphics, game.score);
         }
 
-        if (gameState == GameState::GameOver){
-            finalScore= score;
-            renderGameOver(renderer, fontGameOver, fontHint, finalScore);
+        if(!game.player.alive) game.gameState=GameState::GameOver;
+
+        if (game.gameState == GameState::GameOver){
+            finalScore= game.score;
+            renderGameOver(graphics, finalScore);
         }
 
         //Muestro el contenido en pantalla
-        SDL_RenderPresent(renderer);
+        SDL_RenderPresent(graphics.renderer);
     }
 
 
@@ -297,13 +329,8 @@ int main(int argc, char* argv[]){
     // ====================================
 
     
-    SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
-    SDL_Quit();
-    TTF_CloseFont(fontScore);
-    TTF_CloseFont(fontGameOver);
-    TTF_CloseFont(fontHint);
-    TTF_Quit();
+    destroyGraphics(graphics);
+    quitPlatform();
 
     return 0;
 }
@@ -314,7 +341,7 @@ int main(int argc, char* argv[]){
 // ====================================
 
 
-static mt19937& getGenerator(){
+/*static mt19937& getGenerator(){
     static mt19937 gen(random_device{}());
     return gen;
 }
@@ -322,9 +349,9 @@ static mt19937& getGenerator(){
 int randomInt(int min, int max){
     uniform_int_distribution<int> dist(min, max);
     return dist(getGenerator());
-}
+}*/
 
-Vector2D normalize(const Vector2D& vector){
+/*Vector2D normalize(const Vector2D& vector){
         float length= SDL_sqrt(vector.x*vector.x + vector.y*vector.y);
         if (length == 0.0f) {
             return {0.0f, 0.0f};
@@ -341,7 +368,7 @@ Vector2D subVector(const Vector2D& a, const Vector2D& b){
 
 Vector2D multScalar(const Vector2D& vector, const float scalar){
     return {vector.x * scalar, vector.y * scalar};
-}
+}*/
 
 
 // ====================================
@@ -349,12 +376,12 @@ Vector2D multScalar(const Vector2D& vector, const float scalar){
 // ====================================
 
 
-ProjectileType randomType(){
+/*ProjectileType randomType(){
     vector<ProjectileType> types= {ProjectileType::Big, ProjectileType::Medium, ProjectileType::Small};
     return types[randomInt(0, types.size() - 1)];
-}
+}*/
 
-Projectile createProjectile(ProjectileType type){
+/*Projectile createProjectile(ProjectileType type){
     Projectile projectile{};
 
     projectile.type = type;
@@ -383,9 +410,9 @@ Projectile createProjectile(ProjectileType type){
     }
 
     return projectile;
-}
+}*/
 
-Player createPlayer(){
+/*Player createPlayer(){
     Player player{};
 
     player.rectPlayer={300, 300, 50, 50};
@@ -395,7 +422,7 @@ Player createPlayer(){
     player.alive= true;
 
     return player;
-}
+}*/
 
 
 // ====================================
@@ -403,16 +430,16 @@ Player createPlayer(){
 // ====================================    
 
 
-void renderPlayer(Player& player, SDL_Renderer* renderer){
+/*void renderPlayer(Player& player, SDL_Renderer* renderer){
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 200);
     if(!player.alive){
         player.speed=0.0f;
         return;
     }
     SDL_RenderFillRect(renderer, &player.rectPlayer);
-}
+}*/
 
-void renderProjectile(vector<Projectile>& projectiles, SDL_Renderer* renderer){
+/*void renderProjectile(vector<Projectile>& projectiles, SDL_Renderer* renderer){
     for (auto& projectile : projectiles){
         if(!projectile.alive) continue;
 
@@ -432,9 +459,9 @@ void renderProjectile(vector<Projectile>& projectiles, SDL_Renderer* renderer){
 
         SDL_RenderFillRect(renderer, &projectile.rectProjectile);
     }
-}
+}*/
 
-void renderScore(SDL_Renderer* renderer, TTF_Font* font, float score){
+/*void renderScore(SDL_Renderer* renderer, TTF_Font* font, float score){
     SDL_Color white= {255, 255, 255, 255};
     int screenScore= (int)score;
     string scoreText= "Score: " + to_string(screenScore);
@@ -453,7 +480,7 @@ void renderScore(SDL_Renderer* renderer, TTF_Font* font, float score){
 
     SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
     SDL_DestroyTexture(textTexture);
-}
+}*/
 
 
 // ====================================
@@ -461,7 +488,7 @@ void renderScore(SDL_Renderer* renderer, TTF_Font* font, float score){
 // ====================================     
 
 
-void renderGameOver(SDL_Renderer* renderer, TTF_Font* fontGameOver, TTF_Font* fontHint, float finalScore){
+/*void renderGameOver(SDL_Renderer* renderer, TTF_Font* fontGameOver, TTF_Font* fontHint, float finalScore){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 180);
     SDL_Rect backGround= {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
     SDL_RenderFillRect(renderer, &backGround);
@@ -510,14 +537,22 @@ void renderGameOver(SDL_Renderer* renderer, TTF_Font* fontGameOver, TTF_Font* fo
     SDL_DestroyTexture(gameOverTexture);
     SDL_DestroyTexture(finalScoreTexture);
     SDL_DestroyTexture(resetTexture);
-}
+}*/
 
-void resetGame(vector<Projectile>& projectiles, Player& player, float& score){
-    player= createPlayer();
-    projectiles.clear();
-    score= 0.0f;
-    gameClock.reset();
-    gameState= GameState::Playing;
+/*void resetGame(Game& game){
+    game.gameState= GameState::Playing;
+    game.gameClock.reset();
+
+    game.score= 0.0f;
+
+    game.player= createPlayer();
+    game.projectiles.clear();
+}*/
+
+void gameOverEvents(SDL_Event& event, Game& game){
+    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_r) {
+                resetGame(game);
+            }
 }
 
 
@@ -526,7 +561,7 @@ void resetGame(vector<Projectile>& projectiles, Player& player, float& score){
 // ====================================
 
 
-void projectileSpawnSystem(vector<Projectile>& projectiles, Uint32 appTime, const Uint32 intervalSpawn){
+/*void projectileSpawnSystem(vector<Projectile>& projectiles, Uint32 appTime, const Uint32 intervalSpawn){
     static float firstSpawn= true;
     static Uint32 lastSpawn= 0;
 
@@ -546,9 +581,9 @@ void spawnProjectile(vector<Projectile>& projectiles){
     projectile.rectProjectile.y= -10;
 
     projectiles.push_back(projectile);
-}
+}*/
 
-void updateProjectile(vector<Projectile>& projectiles, Player& player, float deltaTime){
+/*void updateProjectile(vector<Projectile>& projectiles, Player& player, float deltaTime){
     for (auto& projectile : projectiles){
         if (!projectile.alive) continue;
 
@@ -557,9 +592,9 @@ void updateProjectile(vector<Projectile>& projectiles, Player& player, float del
 
         checkProjectileDeath(projectile, player);
     }
-}
+}*/
 
-void playerInputs(Player& player){
+/*void playerInputs(Player& player){
     SDL_PumpEvents();
     const Uint8* playerKeys= SDL_GetKeyboardState(NULL);
 
@@ -571,17 +606,17 @@ void playerInputs(Player& player){
     if (playerKeys[SDL_SCANCODE_DOWN]) player.direction.y += 1.0f;
 
     player.direction= normalize(player.direction);
-}
+}*/
 
-void updatePlayer(Player& player, float deltaTime){
+/*void updatePlayer(Player& player, float deltaTime){
     player.position.x += player.direction.x * player.speed * deltaTime;
     player.position.y += player.direction.y * player.speed * deltaTime;
 
     player.rectPlayer.x=(int)player.position.x;
     player.rectPlayer.y=(int)player.position.y;
-}
+}*/
 
-void checkProjectileDeath(Projectile& projectile, Player& player){
+/*void checkProjectileDeath(Projectile& projectile, Player& player){
     if (projectile.rectProjectile.y > SCREEN_HEIGHT){
         projectile.alive= false;
     }
@@ -592,14 +627,8 @@ void checkProjectileDeath(Projectile& projectile, Player& player){
 
         gameState= GameState::GameOver;
     }
-}
+}*/
 
-void updateScore(float& score, float deltaTime){
+/*void updateScore(float& score, float deltaTime){
     score += SCORE_RATE * deltaTime;
-}
-
-void gameOverEvents(SDL_Event& event, vector<Projectile>& projectiles, Player& player, float& score){
-    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_r) {
-                resetGame(projectiles, player, score);
-            }
-}
+}*/
