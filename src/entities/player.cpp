@@ -1,5 +1,4 @@
 #include "entities/player.hpp"
-#include "utilities/vector2D.hpp"
 #include "core/input.hpp"
 #include <SDL.h>
 

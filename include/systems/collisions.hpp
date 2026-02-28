@@ -1,5 +1,6 @@
 #pragma once
-#include "entities/player.hpp"
-#include "entities/projectile.hpp"
+
+struct Projectile;
+struct Player;
 
 void checkProjectileDeath(Projectile& projectile, Player& player);

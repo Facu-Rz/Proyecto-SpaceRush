@@ -1,8 +1,9 @@
 #pragma once
 #include "utilities/vector2D.hpp"
-#include "entities/player.hpp"
 #include <SDL.h>
 #include <vector>
+
+struct Player;
 
 enum class ProjectileType {
     Small,
@@ -17,8 +18,6 @@ struct Projectile {
     Vector2D direction;
     float speed;
 
-    Uint32 firstTimeSpawn;
-    Uint32 liveTime;
     bool alive;
     ProjectileType type;
 };

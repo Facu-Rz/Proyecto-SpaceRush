@@ -13,8 +13,8 @@ struct Graphics {
     SDL_Renderer* renderer = nullptr;
     Fonts fonts;
 
-    const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 600;
+    int WINDOW_WIDTH = 800;
+    int WINDOW_HEIGHT = 600;
 };
 
 bool initGraphics(Graphics& graphics);

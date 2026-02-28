@@ -1,7 +1,8 @@
 #include "systems/spawn_projectile.hpp"
 #include "entities/projectile.hpp"
 #include "utilities/random.hpp"
-#include  "game/game.hpp"
+#include "game/game.hpp"
+#include "game/game_config.hpp"
 #include <iostream>
 #include <vector>
 
@@ -10,31 +11,25 @@ ProjectileType randomType(){
     return types[randomInt(0, types.size() - 1)];
 }
 
-void projectileSpawnSystem(Uint32 appTime ,std::vector<Projectile>& projectiles, const Uint32 intervalSpawn){
-    static float firstSpawn= true;
-    static Uint32 lastSpawn= 0;
+void projectileSpawnSystem(std::vector<Projectile>& projectiles, Spawner& projectileSpawner, float deltaTime){
+    projectileSpawner.timer += deltaTime;
 
-    if (firstSpawn || appTime - lastSpawn >= intervalSpawn){
-        spawnProjectile(projectiles);
-        lastSpawn= appTime;
-        firstSpawn= false;
+    while (projectileSpawner.timer >= projectileSpawner.interval) {
+        projectiles.push_back(spawnProjectile());
+        projectileSpawner.timer -= projectileSpawner.interval;
     }
-    
-    /*game.projectileSpawnTimer += game.gameClock.deltaTime;
-
-    if (game.projectileSpawnTimer >= intervalSpawn) {
-        spawnProjectile(projectiles);
-        game.projectileSpawnTimer -= intervalSpawn;
-    }*/
 }
 
-void spawnProjectile(std::vector<Projectile>& projectiles){
+Projectile spawnProjectile(){
     ProjectileType type= randomType();
 
     Projectile projectile= createProjectile(type);
 
-    projectile.rectProjectile.x= randomInt(0, 800 - projectile.rectProjectile.w);
-    projectile.rectProjectile.y= -10;
+    projectile.position.x= randomFloat(0, GameConfig::WorldWidth - projectile.rectProjectile.w);
+    projectile.position.y= - projectile.rectProjectile.h;
 
-    projectiles.push_back(projectile);
+    projectile.rectProjectile.x= (int)projectile.position.x;
+    projectile.rectProjectile.y= (int)projectile.position.y;
+
+    return projectile;
 }

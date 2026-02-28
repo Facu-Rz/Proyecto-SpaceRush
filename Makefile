@@ -1,19 +1,34 @@
-CXX = g++
-CXXFLAGS = -Iinclude -Isrc -IC:/SDL2/include/SDL2 
+CXX = clang++
+CXXFLAGS = -Iinclude -Isrc -std=c++20 -Wall -Wextra -Wpedantic -MMD -MP
 LDFLAGS  = -LC:/SDL2/lib
-LDLIBS   = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
+
+CXXFLAGS += $(shell sdl2-config --cflags)
+LDFLAGS  += $(shell sdl2-config --libs)
+LDLIBS   += -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 
 SRC_DIR   = src
-BUILD_DIR = build
+BIN_DIR   = bin
 
-SRCS = $(shell find $(SRC_DIR) -name "*.cpp")
-OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS))
+DEBUG_MODE ?=1
 
-TARGET = $(BUILD_DIR)/SpaceRush.exe
+ifeq ($(DEBUG_MODE), 1)
+	BUILD_DIR = build/debug
+	TARGET    = $(BIN_DIR)/SpaceRush_Debug.exe
+	CXXFLAGS += -g -O0 -fsanitize=address -DDEBUG_MODE
+	LDFLAGS  += -fsanitize=address
+else
+	BUILD_DIR = build/release
+	TARGET    = $(BIN_DIR)/SpaceRush.exe  
+	CXXFLAGS += -O2
+endif
+
+SRCS = $(shell find $(SRC_DIR) -type f -name "*.cpp")
+OBJS = $(SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
+	@mkdir -p $(BIN_DIR)
 	$(CXX) $(OBJS) -o $@ $(LDFLAGS) $(LDLIBS)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
@@ -21,4 +36,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(BUILD_DIR)/*.o $(TARGET)
+	rm -rf build 
+	rm -f $(BIN_DIR)/*.exe
+
+-include $(OBJS:.o=.d)

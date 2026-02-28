@@ -1,5 +1,7 @@
 #include "core/ui.hpp"
 #include "core/layout.hpp"
+#include "platform/sdl/graphics.hpp"
+#include "game/game_config.hpp"
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <string>
@@ -22,7 +24,7 @@ void updateScore(float& score, float deltaTime){
 }
 
 void renderGameOver(const Graphics& graphics, float finalScore){
-    renderGOBackground(graphics.renderer);
+    renderGOBackground(graphics);
 
     int score= (int)finalScore;
 
@@ -62,10 +64,8 @@ void renderText(const Graphics& graphics, const std::string& text, TextPropertie
     rect.w= w;
     rect.h= h;
 
-    int ascent= TTF_FontAscent(properties.font);
-
-    rect.x= layoutAxisValue(graphics.SCREEN_WIDTH, w, properties.x);
-    rect.y= layoutAxisValue(graphics.SCREEN_HEIGHT, h, properties.y);
+    rect.x= layoutAxisValue((int)GameConfig::WorldWidth, w, properties.x);
+    rect.y= layoutAxisValue((int)GameConfig::WorldHeight, h, properties.y);
 
     SDL_Surface* surface= TTF_RenderText_Blended(properties.font, text.c_str(), properties.color);
     SDL_Texture* texture= SDL_CreateTextureFromSurface(graphics.renderer, surface);
@@ -75,8 +75,8 @@ void renderText(const Graphics& graphics, const std::string& text, TextPropertie
     SDL_DestroyTexture(texture);
 }
 
-void renderGOBackground(SDL_Renderer* renderer){
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 180);
-    SDL_Rect backGround= {0, 0, 800, 600};
-    SDL_RenderFillRect(renderer, &backGround);
+void renderGOBackground(const Graphics& graphics){
+    SDL_SetRenderDrawColor(graphics.renderer, 0, 0, 0, 180);
+    SDL_Rect backGround= {0, 0, (int)GameConfig::WorldWidth, (int)GameConfig::WorldHeight};
+    SDL_RenderFillRect(graphics.renderer, &backGround);
 }

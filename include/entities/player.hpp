@@ -1,7 +1,8 @@
 #pragma once
 #include "utilities/vector2D.hpp"
-#include "core/input.hpp"
 #include <SDL.h>
+
+struct InputState;
 
 struct Player {
     SDL_Rect rectPlayer;
