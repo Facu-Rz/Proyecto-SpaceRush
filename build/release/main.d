@@ -52,9 +52,10 @@ build/release/main.o: src/main.cpp include/core/input.hpp \
   C:/msys64/clang64/include/SDL2/SDL_version.h \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
   C:/msys64/clang64/include/SDL2/SDL_misc.h include/entities/player.hpp \
-  include/entities/projectile.hpp include/platform/sdl/graphics.hpp \
-  include/platform/sdl/init.hpp include/game/game.hpp \
-  include/systems/spawn_projectile.hpp include/systems/collisions.hpp \
+  include/entities/entity.hpp include/entities/projectile.hpp \
+  include/platform/sdl/graphics.hpp include/platform/sdl/init.hpp \
+  include/game/game.hpp include/systems/spawn_projectile.hpp \
+  include/systems/collisions.hpp include/systems/colission_rules.hpp \
   include/utilities/random.hpp \
   C:/msys64/clang64/include/SDL2/SDL_image.h \
   C:/msys64/clang64/include/SDL2/SDL_mixer.h
@@ -116,12 +117,14 @@ C:/msys64/clang64/include/SDL2/SDL_version.h:
 C:/msys64/clang64/include/SDL2/SDL_locale.h:
 C:/msys64/clang64/include/SDL2/SDL_misc.h:
 include/entities/player.hpp:
+include/entities/entity.hpp:
 include/entities/projectile.hpp:
 include/platform/sdl/graphics.hpp:
 include/platform/sdl/init.hpp:
 include/game/game.hpp:
 include/systems/spawn_projectile.hpp:
 include/systems/collisions.hpp:
+include/systems/colission_rules.hpp:
 include/utilities/random.hpp:
 C:/msys64/clang64/include/SDL2/SDL_image.h:
 C:/msys64/clang64/include/SDL2/SDL_mixer.h:

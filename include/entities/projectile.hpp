@@ -1,9 +1,8 @@
 #pragma once
 #include "utilities/vector2D.hpp"
+#include "entities/entity.hpp"
 #include <SDL.h>
 #include <vector>
-
-struct Player;
 
 enum class ProjectileType {
     Small,
@@ -11,19 +10,15 @@ enum class ProjectileType {
     Big
 };
 
-struct Projectile {
-    SDL_Rect rectProjectile;
-
-    Vector2D position;
-    Vector2D direction;
-    float speed;
-
-    bool alive;
+struct Projectile : public Entity{
     ProjectileType type;
+    int spawnId;
+
+    int getRank() const;
 };
 
 Projectile createProjectile(ProjectileType type);
 
-void updateProjectile(std::vector<Projectile>& projectiles, Player& player, float deltaTime);
+void updateProjectile(std::vector<Projectile>& projectiles, float deltaTime);
 
 void renderProjectile(std::vector<Projectile>& projectiles, SDL_Renderer* renderer);

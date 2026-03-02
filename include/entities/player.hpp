@@ -1,18 +1,11 @@
 #pragma once
+#include "entities/entity.hpp"
 #include "utilities/vector2D.hpp"
 #include <SDL.h>
 
 struct InputState;
 
-struct Player {
-    SDL_Rect rectPlayer;
-
-    Vector2D position;
-    Vector2D direction;
-    float speed;
-
-    bool alive;
-};
+struct Player : public Entity{};
 
 Player createPlayer();
 

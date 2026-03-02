@@ -8,6 +8,7 @@
 #include "platform/sdl/init.hpp"
 #include "game/game.hpp"
 #include "systems/collisions.hpp"
+#include "systems/colission_rules.hpp"
 #include "systems/spawn_projectile.hpp"
 #include "utilities/vector2D.hpp"
 #include "utilities/random.hpp"
@@ -46,6 +47,10 @@ int main(int argc, char* argv[]){
 
     Game game;
     game.player = createPlayer();
+    ColissionSystem colissionSystem;
+
+    colissionSystem.registerRule(ColissionLayer::Player, ColissionLayer::Projectile, playerVsProjectile);
+    colissionSystem.registerRule(ColissionLayer::Projectile, ColissionLayer::Projectile, projectileVsProjectile);
 
     #ifdef DEBUG_MODE
     Uint32 lastPrint= 0;
@@ -85,13 +90,21 @@ int main(int argc, char* argv[]){
 
             InputState state= getInputState();
 
-            updatePlayer(player, deltaTime, state);
-
-            renderPlayer(player, graphics.renderer);
-            
             projectileSpawnSystem(projectiles, game.spawnType.projectileSpawner, deltaTime);
 
-            updateProjectile(projectiles, player, deltaTime);
+            updatePlayer(player, deltaTime, state);
+
+            updateProjectile(projectiles, deltaTime);
+
+            std::vector<Entity*> collidable;
+
+            collidable.push_back(&player);
+
+            for (auto& projectile:projectiles) collidable.push_back(&projectile);
+
+            colissionSystem.detectColissions(collidable);
+
+            renderPlayer(player, graphics.renderer);
             
             renderProjectile(projectiles, graphics.renderer);
 

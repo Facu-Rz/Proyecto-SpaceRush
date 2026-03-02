@@ -1,6 +1,6 @@
 build/release/entities/player.o: src/entities/player.cpp \
-  include/entities/player.hpp include/utilities/vector2D.hpp \
-  C:/msys64/clang64/include/SDL2/SDL.h \
+  include/entities/player.hpp include/entities/entity.hpp \
+  include/utilities/vector2D.hpp C:/msys64/clang64/include/SDL2/SDL.h \
   C:/msys64/clang64/include/SDL2/SDL_main.h \
   C:/msys64/clang64/include/SDL2/SDL_stdinc.h \
   C:/msys64/clang64/include/SDL2/SDL_config.h \
@@ -49,8 +49,10 @@ build/release/entities/player.o: src/entities/player.cpp \
   C:/msys64/clang64/include/SDL2/SDL_timer.h \
   C:/msys64/clang64/include/SDL2/SDL_version.h \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
-  C:/msys64/clang64/include/SDL2/SDL_misc.h include/core/input.hpp
+  C:/msys64/clang64/include/SDL2/SDL_misc.h \
+  include/systems/collisions.hpp include/core/input.hpp
 include/entities/player.hpp:
+include/entities/entity.hpp:
 include/utilities/vector2D.hpp:
 C:/msys64/clang64/include/SDL2/SDL.h:
 C:/msys64/clang64/include/SDL2/SDL_main.h:
@@ -102,4 +104,5 @@ C:/msys64/clang64/include/SDL2/SDL_timer.h:
 C:/msys64/clang64/include/SDL2/SDL_version.h:
 C:/msys64/clang64/include/SDL2/SDL_locale.h:
 C:/msys64/clang64/include/SDL2/SDL_misc.h:
+include/systems/collisions.hpp:
 include/core/input.hpp:

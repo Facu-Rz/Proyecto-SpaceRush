@@ -1,6 +1,7 @@
 build/release/game/game.o: src/game/game.cpp include/game/game.hpp \
   include/core/time.hpp include/entities/player.hpp \
-  include/utilities/vector2D.hpp C:/msys64/clang64/include/SDL2/SDL.h \
+  include/entities/entity.hpp include/utilities/vector2D.hpp \
+  C:/msys64/clang64/include/SDL2/SDL.h \
   C:/msys64/clang64/include/SDL2/SDL_main.h \
   C:/msys64/clang64/include/SDL2/SDL_stdinc.h \
   C:/msys64/clang64/include/SDL2/SDL_config.h \
@@ -54,6 +55,7 @@ build/release/game/game.o: src/game/game.cpp include/game/game.hpp \
 include/game/game.hpp:
 include/core/time.hpp:
 include/entities/player.hpp:
+include/entities/entity.hpp:
 include/utilities/vector2D.hpp:
 C:/msys64/clang64/include/SDL2/SDL.h:
 C:/msys64/clang64/include/SDL2/SDL_main.h:

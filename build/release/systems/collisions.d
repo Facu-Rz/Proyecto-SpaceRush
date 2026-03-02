@@ -1,5 +1,5 @@
 build/release/systems/collisions.o: src/systems/collisions.cpp \
-  include/systems/collisions.hpp include/entities/player.hpp \
+  include/systems/collisions.hpp include/entities/entity.hpp \
   include/utilities/vector2D.hpp C:/msys64/clang64/include/SDL2/SDL.h \
   C:/msys64/clang64/include/SDL2/SDL_main.h \
   C:/msys64/clang64/include/SDL2/SDL_stdinc.h \
@@ -49,10 +49,9 @@ build/release/systems/collisions.o: src/systems/collisions.cpp \
   C:/msys64/clang64/include/SDL2/SDL_timer.h \
   C:/msys64/clang64/include/SDL2/SDL_version.h \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
-  C:/msys64/clang64/include/SDL2/SDL_misc.h \
-  include/entities/projectile.hpp
+  C:/msys64/clang64/include/SDL2/SDL_misc.h
 include/systems/collisions.hpp:
-include/entities/player.hpp:
+include/entities/entity.hpp:
 include/utilities/vector2D.hpp:
 C:/msys64/clang64/include/SDL2/SDL.h:
 C:/msys64/clang64/include/SDL2/SDL_main.h:
@@ -104,4 +103,3 @@ C:/msys64/clang64/include/SDL2/SDL_timer.h:
 C:/msys64/clang64/include/SDL2/SDL_version.h:
 C:/msys64/clang64/include/SDL2/SDL_locale.h:
 C:/msys64/clang64/include/SDL2/SDL_misc.h:
-include/entities/projectile.hpp:

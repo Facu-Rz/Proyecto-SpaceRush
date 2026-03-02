@@ -25,11 +25,14 @@ Projectile spawnProjectile(){
 
     Projectile projectile= createProjectile(type);
 
-    projectile.position.x= randomFloat(0, GameConfig::WorldWidth - projectile.rectProjectile.w);
-    projectile.position.y= - projectile.rectProjectile.h;
+    projectile.position.x= randomFloat(0, GameConfig::WorldWidth - projectile.collider.w);
+    projectile.position.y= - projectile.collider.h;
 
-    projectile.rectProjectile.x= (int)projectile.position.x;
-    projectile.rectProjectile.y= (int)projectile.position.y;
+    projectile.collider.x= (int)projectile.position.x;
+    projectile.collider.y= (int)projectile.position.y;
+
+    static int nextId= 0;
+    projectile.spawnId= nextId++;
 
     return projectile;
 }
