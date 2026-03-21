@@ -1,5 +1,6 @@
 build/release/core/input.o: src/core/input.cpp include/core/input.hpp \
-  include/utilities/vector2D.hpp C:/msys64/clang64/include/SDL2/SDL.h \
+  include/utilities/vector2D.hpp include/debug/debug_state.hpp \
+  include/core/layout.hpp C:/msys64/clang64/include/SDL2/SDL.h \
   C:/msys64/clang64/include/SDL2/SDL_main.h \
   C:/msys64/clang64/include/SDL2/SDL_stdinc.h \
   C:/msys64/clang64/include/SDL2/SDL_config.h \
@@ -48,9 +49,13 @@ build/release/core/input.o: src/core/input.cpp include/core/input.hpp \
   C:/msys64/clang64/include/SDL2/SDL_timer.h \
   C:/msys64/clang64/include/SDL2/SDL_version.h \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
-  C:/msys64/clang64/include/SDL2/SDL_misc.h
+  C:/msys64/clang64/include/SDL2/SDL_misc.h \
+  include/debug/debug_tools.hpp include/systems/spawn_projectile.hpp \
+  include/entities/projectile.hpp include/entities/entity.hpp
 include/core/input.hpp:
 include/utilities/vector2D.hpp:
+include/debug/debug_state.hpp:
+include/core/layout.hpp:
 C:/msys64/clang64/include/SDL2/SDL.h:
 C:/msys64/clang64/include/SDL2/SDL_main.h:
 C:/msys64/clang64/include/SDL2/SDL_stdinc.h:
@@ -101,3 +106,7 @@ C:/msys64/clang64/include/SDL2/SDL_timer.h:
 C:/msys64/clang64/include/SDL2/SDL_version.h:
 C:/msys64/clang64/include/SDL2/SDL_locale.h:
 C:/msys64/clang64/include/SDL2/SDL_misc.h:
+include/debug/debug_tools.hpp:
+include/systems/spawn_projectile.hpp:
+include/entities/projectile.hpp:
+include/entities/entity.hpp:

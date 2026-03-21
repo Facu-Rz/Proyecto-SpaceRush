@@ -1,7 +1,6 @@
 build/release/game/game.o: src/game/game.cpp include/game/game.hpp \
-  include/core/time.hpp include/entities/player.hpp \
-  include/entities/entity.hpp include/utilities/vector2D.hpp \
-  C:/msys64/clang64/include/SDL2/SDL.h \
+  include/core/time.hpp include/debug/debug_state.hpp \
+  include/core/layout.hpp C:/msys64/clang64/include/SDL2/SDL.h \
   C:/msys64/clang64/include/SDL2/SDL_main.h \
   C:/msys64/clang64/include/SDL2/SDL_stdinc.h \
   C:/msys64/clang64/include/SDL2/SDL_config.h \
@@ -50,13 +49,13 @@ build/release/game/game.o: src/game/game.cpp include/game/game.hpp \
   C:/msys64/clang64/include/SDL2/SDL_timer.h \
   C:/msys64/clang64/include/SDL2/SDL_version.h \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
-  C:/msys64/clang64/include/SDL2/SDL_misc.h \
+  C:/msys64/clang64/include/SDL2/SDL_misc.h include/entities/player.hpp \
+  include/entities/entity.hpp include/utilities/vector2D.hpp \
   include/entities/projectile.hpp include/systems/spawn_projectile.hpp
 include/game/game.hpp:
 include/core/time.hpp:
-include/entities/player.hpp:
-include/entities/entity.hpp:
-include/utilities/vector2D.hpp:
+include/debug/debug_state.hpp:
+include/core/layout.hpp:
 C:/msys64/clang64/include/SDL2/SDL.h:
 C:/msys64/clang64/include/SDL2/SDL_main.h:
 C:/msys64/clang64/include/SDL2/SDL_stdinc.h:
@@ -107,5 +106,8 @@ C:/msys64/clang64/include/SDL2/SDL_timer.h:
 C:/msys64/clang64/include/SDL2/SDL_version.h:
 C:/msys64/clang64/include/SDL2/SDL_locale.h:
 C:/msys64/clang64/include/SDL2/SDL_misc.h:
+include/entities/player.hpp:
+include/entities/entity.hpp:
+include/utilities/vector2D.hpp:
 include/entities/projectile.hpp:
 include/systems/spawn_projectile.hpp:

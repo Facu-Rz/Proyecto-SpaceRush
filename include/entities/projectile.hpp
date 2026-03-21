@@ -22,3 +22,5 @@ Projectile createProjectile(ProjectileType type);
 void updateProjectile(std::vector<Projectile>& projectiles, float deltaTime);
 
 void renderProjectile(std::vector<Projectile>& projectiles, SDL_Renderer* renderer);
+
+void cleanUpProjectiles(std::vector<Projectile>& projectiles);

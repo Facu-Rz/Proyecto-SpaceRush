@@ -52,7 +52,9 @@ build/release/systems/spawn_projectile.o: \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
   C:/msys64/clang64/include/SDL2/SDL_misc.h include/utilities/random.hpp \
   include/game/game.hpp include/core/time.hpp \
-  include/entities/player.hpp include/game/game_config.hpp
+  include/debug/debug_state.hpp include/core/layout.hpp \
+  include/entities/player.hpp include/debug/debug_tools.hpp \
+  include/game/game_config.hpp
 include/systems/spawn_projectile.hpp:
 include/entities/projectile.hpp:
 include/utilities/vector2D.hpp:
@@ -110,5 +112,8 @@ C:/msys64/clang64/include/SDL2/SDL_misc.h:
 include/utilities/random.hpp:
 include/game/game.hpp:
 include/core/time.hpp:
+include/debug/debug_state.hpp:
+include/core/layout.hpp:
 include/entities/player.hpp:
+include/debug/debug_tools.hpp:
 include/game/game_config.hpp:

@@ -4,7 +4,7 @@ namespace GameConfig {
     constexpr float WorldWidth = 800.0f;
     constexpr float WorldHeight = 600.0f;
 
-    constexpr float PlayableMargin = 3.0f;
+    constexpr float PlayableMargin = 0.0f;
 
     constexpr float LeftBound = PlayableMargin;
     constexpr float RightBound = WorldWidth - PlayableMargin;

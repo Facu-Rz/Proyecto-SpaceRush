@@ -50,7 +50,9 @@ build/release/entities/player.o: src/entities/player.cpp \
   C:/msys64/clang64/include/SDL2/SDL_version.h \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
   C:/msys64/clang64/include/SDL2/SDL_misc.h \
-  include/systems/collisions.hpp include/core/input.hpp
+  include/debug/debug_state.hpp include/core/layout.hpp \
+  include/game/game_config.hpp include/systems/collisions.hpp \
+  include/core/input.hpp
 include/entities/player.hpp:
 include/entities/entity.hpp:
 include/utilities/vector2D.hpp:
@@ -104,5 +106,8 @@ C:/msys64/clang64/include/SDL2/SDL_timer.h:
 C:/msys64/clang64/include/SDL2/SDL_version.h:
 C:/msys64/clang64/include/SDL2/SDL_locale.h:
 C:/msys64/clang64/include/SDL2/SDL_misc.h:
+include/debug/debug_state.hpp:
+include/core/layout.hpp:
+include/game/game_config.hpp:
 include/systems/collisions.hpp:
 include/core/input.hpp:

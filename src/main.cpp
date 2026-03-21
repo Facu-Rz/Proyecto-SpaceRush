@@ -7,6 +7,7 @@
 #include "platform/sdl/graphics.hpp"
 #include "platform/sdl/init.hpp"
 #include "game/game.hpp"
+#include "debug/debug_visual.hpp"
 #include "systems/collisions.hpp"
 #include "systems/colission_rules.hpp"
 #include "systems/spawn_projectile.hpp"
@@ -27,10 +28,6 @@ int main(int argc, char* argv[]){
     (void)argc;
     (void)argv;
 
-    #ifdef DEBUG_MODE
-    cout << "Debug mode activo\n";
-    #endif
-
     ProjectPaths::initialize();
     
     if (!initPlatform()){
@@ -48,23 +45,23 @@ int main(int argc, char* argv[]){
     Game game;
     game.player = createPlayer();
     ColissionSystem colissionSystem;
-
+    
     colissionSystem.registerRule(ColissionLayer::Player, ColissionLayer::Projectile, playerVsProjectile);
     colissionSystem.registerRule(ColissionLayer::Projectile, ColissionLayer::Projectile, projectileVsProjectile);
 
-    #ifdef DEBUG_MODE
-    Uint32 lastPrint= 0;
-    Uint32 appTime = 0;
-    const Uint32 intervalPrint= 1000;
-    #endif
-
     float finalScore= 0.0f;
+
+    #ifdef DEBUG_MODE
+    cout << "Debug mode activo" << endl;
+    #endif
 
     auto& player = game.player;
     auto& projectiles = game.projectiles;
     auto& deltaTime = game.gameClock.deltaTime;
 
     while (game.running){
+        game.gameClock.update();
+        
         InputEvent events= pollInputEvent();
 
         if (events.quit) game.running = false;
@@ -77,16 +74,12 @@ int main(int argc, char* argv[]){
         SDL_SetRenderDrawColor(graphics.renderer, 91, 91, 91, 255);
         SDL_RenderClear(graphics.renderer);
 
-        if (game.gameState == GameState::Playing){
-            game.gameClock.update();
+        #ifdef DEBUG_MODE
+        DebugData data = game.getDebugData();
+        #endif
 
-            #ifdef DEBUG_MODE
-            appTime= SDL_GetTicks();
-            if (appTime - lastPrint >= intervalPrint){
-                cout << "Tiempo global: " << appTime / 1000 << "s" << endl;
-                lastPrint += intervalPrint;
-            }
-            #endif
+        if (game.gameState == GameState::Playing){
+            game.gameClock.playingTime += deltaTime;
 
             InputState state= getInputState();
 
@@ -104,6 +97,8 @@ int main(int argc, char* argv[]){
 
             colissionSystem.detectColissions(collidable);
 
+            cleanUpProjectiles(projectiles);
+            
             renderPlayer(player, graphics.renderer);
             
             renderProjectile(projectiles, graphics.renderer);
@@ -120,7 +115,10 @@ int main(int argc, char* argv[]){
             renderGameOver(graphics, finalScore);
         }
 
-        //Muestro el contenido en pantalla
+        #ifdef DEBUG_MODE
+        renderDebugVisual(graphics.renderer);
+        renderDebugUi(graphics, data);
+        #endif
         SDL_RenderPresent(graphics.renderer);
     }
     destroyGraphics(graphics);

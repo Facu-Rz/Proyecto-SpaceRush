@@ -1,8 +1,7 @@
 build/release/main.o: src/main.cpp include/core/input.hpp \
   include/utilities/vector2D.hpp include/core/project_path.hpp \
   include/core/time.hpp include/core/ui.hpp include/core/layout.hpp \
-  C:/msys64/clang64/include/SDL2/SDL_ttf.h \
-  C:/msys64/clang64/include/SDL2/SDL.h \
+  include/debug/debug_state.hpp C:/msys64/clang64/include/SDL2/SDL.h \
   C:/msys64/clang64/include/SDL2/SDL_main.h \
   C:/msys64/clang64/include/SDL2/SDL_stdinc.h \
   C:/msys64/clang64/include/SDL2/SDL_config.h \
@@ -51,12 +50,13 @@ build/release/main.o: src/main.cpp include/core/input.hpp \
   C:/msys64/clang64/include/SDL2/SDL_timer.h \
   C:/msys64/clang64/include/SDL2/SDL_version.h \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
-  C:/msys64/clang64/include/SDL2/SDL_misc.h include/entities/player.hpp \
+  C:/msys64/clang64/include/SDL2/SDL_misc.h \
+  C:/msys64/clang64/include/SDL2/SDL_ttf.h include/entities/player.hpp \
   include/entities/entity.hpp include/entities/projectile.hpp \
   include/platform/sdl/graphics.hpp include/platform/sdl/init.hpp \
   include/game/game.hpp include/systems/spawn_projectile.hpp \
-  include/systems/collisions.hpp include/systems/colission_rules.hpp \
-  include/utilities/random.hpp \
+  include/debug/debug_visual.hpp include/systems/collisions.hpp \
+  include/systems/colission_rules.hpp include/utilities/random.hpp \
   C:/msys64/clang64/include/SDL2/SDL_image.h \
   C:/msys64/clang64/include/SDL2/SDL_mixer.h
 include/core/input.hpp:
@@ -65,7 +65,7 @@ include/core/project_path.hpp:
 include/core/time.hpp:
 include/core/ui.hpp:
 include/core/layout.hpp:
-C:/msys64/clang64/include/SDL2/SDL_ttf.h:
+include/debug/debug_state.hpp:
 C:/msys64/clang64/include/SDL2/SDL.h:
 C:/msys64/clang64/include/SDL2/SDL_main.h:
 C:/msys64/clang64/include/SDL2/SDL_stdinc.h:
@@ -116,6 +116,7 @@ C:/msys64/clang64/include/SDL2/SDL_timer.h:
 C:/msys64/clang64/include/SDL2/SDL_version.h:
 C:/msys64/clang64/include/SDL2/SDL_locale.h:
 C:/msys64/clang64/include/SDL2/SDL_misc.h:
+C:/msys64/clang64/include/SDL2/SDL_ttf.h:
 include/entities/player.hpp:
 include/entities/entity.hpp:
 include/entities/projectile.hpp:
@@ -123,6 +124,7 @@ include/platform/sdl/graphics.hpp:
 include/platform/sdl/init.hpp:
 include/game/game.hpp:
 include/systems/spawn_projectile.hpp:
+include/debug/debug_visual.hpp:
 include/systems/collisions.hpp:
 include/systems/colission_rules.hpp:
 include/utilities/random.hpp:

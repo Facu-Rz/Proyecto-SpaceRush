@@ -11,4 +11,6 @@ Player createPlayer();
 
 void updatePlayer(Player& player, float deltaTime, InputState state);
 
+void confineToBounds(Player& player);
+
 void renderPlayer(Player& player, SDL_Renderer* renderer);

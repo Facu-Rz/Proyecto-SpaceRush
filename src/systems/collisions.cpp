@@ -2,17 +2,6 @@
 #include "entities/entity.hpp"
 #include <vector>
 
-/*void checkProjectileDeath(Projectile& projectile, Player& player){
-    if (projectile.rectProjectile.y > 600){
-        projectile.alive= false;
-    }
-
-    if (SDL_HasIntersection(&projectile.rectProjectile, &player.rectPlayer)){
-        projectile.alive= false;
-        player.alive= false;
-    }
-}*/
-
 void ColissionSystem::registerRule(ColissionLayer a, ColissionLayer b, ColissionResult(*ruleFunc)(Entity&, Entity&)){
     rules.push_back({a, b, ruleFunc});
 }

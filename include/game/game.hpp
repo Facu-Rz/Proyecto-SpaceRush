@@ -1,5 +1,6 @@
 #pragma once
 #include "core/time.hpp"
+#include "debug/debug_state.hpp"
 #include "entities/player.hpp"
 #include "entities/projectile.hpp"
 #include "systems/spawn_projectile.hpp"
@@ -23,6 +24,9 @@ struct Game {
     Player player;
     std::vector<Projectile> projectiles;
 
+    #ifdef DEBUG_MODE
+    DebugData getDebugData() const;
+    #endif
 
     Game():
         gameState(GameState::Playing),

@@ -1,4 +1,6 @@
 #include "core/input.hpp"
+#include "debug/debug_state.hpp"
+#include "debug/debug_tools.hpp"
 #include "utilities/vector2D.hpp"
 #include <SDL.h>
 
@@ -10,10 +12,11 @@ InputState getInputState(){
 
     state.movement= {0.0f, 0.0f};
 
-    if (playerKeys[SDL_SCANCODE_LEFT]) state.movement.x -= 1.0f;
-    if (playerKeys[SDL_SCANCODE_RIGHT]) state.movement.x += 1.0f;
-    if (playerKeys[SDL_SCANCODE_UP]) state.movement.y -= 1.0f;
-    if (playerKeys[SDL_SCANCODE_DOWN]) state.movement.y += 1.0f;
+    state.movement.x= (playerKeys[SDL_SCANCODE_RIGHT] ? 1.0f : 0.0f) -
+    (playerKeys[SDL_SCANCODE_LEFT] ? 1.0f : 0.0f);
+
+    state.movement.y= (playerKeys[SDL_SCANCODE_DOWN] ? 1.0f : 0.0f) -
+    (playerKeys[SDL_SCANCODE_UP] ? 1.0f : 0.0f);
 
     state.movement= normalize(state.movement);
 
@@ -32,6 +35,10 @@ InputEvent pollInputEvent(){
         switch (event.key.keysym.sym) {
             case SDLK_r: events.reset = true; break;
         }
+
+        #ifdef DEBUG_MODE
+            handleDebugInput(event);
+            #endif
     }
 
     return events;

@@ -35,6 +35,8 @@ bool initGraphics(Graphics& graphics){
     graphics.fonts.score = TTF_OpenFont(scorePath.string().c_str(), 24);
     graphics.fonts.gameOver = TTF_OpenFont(gameOverPath.string().c_str(), 72);
     graphics.fonts.hint = TTF_OpenFont(hintPath.string().c_str(), 28);
+    graphics.fonts.hint2 = TTF_OpenFont(hintPath.string().c_str(), 20);
+    graphics.fonts.hint3 = TTF_OpenFont(hintPath.string().c_str(), 17);
 
     if (!graphics.fonts.score || !graphics.fonts.gameOver || !graphics.fonts.hint) {
         SDL_Log("Error al cargar la fuente: %s", TTF_GetError());

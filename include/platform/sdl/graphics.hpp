@@ -6,6 +6,8 @@ struct Fonts {
     TTF_Font* score = nullptr;
     TTF_Font* gameOver = nullptr;
     TTF_Font* hint = nullptr;
+    TTF_Font* hint2 = nullptr;
+    TTF_Font* hint3 = nullptr;
 };
 
 struct Graphics {

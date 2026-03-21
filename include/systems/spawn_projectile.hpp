@@ -7,17 +7,17 @@ struct Game;
 
 struct Spawner {
     float timer=0.0f;
-    float interval;
-
-    Spawner(float interval)
-        : interval(interval) {}
+    float spawnRate;
+    
+    Spawner(int rate)
+        : spawnRate(rate) {}
 };
 
 struct SpawnType {
     Spawner projectileSpawner;
 
     SpawnType()
-        : projectileSpawner(0.25f) {}
+        : projectileSpawner(4.0f) {}
 };
 
 ProjectileType randomType();
@@ -25,3 +25,5 @@ ProjectileType randomType();
 void projectileSpawnSystem(std::vector<Projectile>& projectiles, Spawner& projectileSpawner, float deltaTime);
 
 Projectile spawnProjectile();
+
+bool isPositionFree(const SDL_Rect& candidate, const std::vector<Projectile>& projectiles);

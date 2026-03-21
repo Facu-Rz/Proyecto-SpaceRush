@@ -50,7 +50,7 @@ build/release/entities/projectile.o: src/entities/projectile.cpp \
   C:/msys64/clang64/include/SDL2/SDL_version.h \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
   C:/msys64/clang64/include/SDL2/SDL_misc.h include/entities/player.hpp \
-  include/systems/collisions.hpp
+  include/systems/collisions.hpp include/game/game_config.hpp
 include/entities/projectile.hpp:
 include/utilities/vector2D.hpp:
 include/entities/entity.hpp:
@@ -106,3 +106,4 @@ C:/msys64/clang64/include/SDL2/SDL_locale.h:
 C:/msys64/clang64/include/SDL2/SDL_misc.h:
 include/entities/player.hpp:
 include/systems/collisions.hpp:
+include/game/game_config.hpp:

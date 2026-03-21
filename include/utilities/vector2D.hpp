@@ -3,6 +3,10 @@
 struct Vector2D {
     float x;
     float y;
+
+    float lengthSquared() const {
+        return x*x + y*y;
+    }
 };
 
 Vector2D normalize(const Vector2D& vector);

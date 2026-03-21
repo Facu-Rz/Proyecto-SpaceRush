@@ -2,6 +2,7 @@
 #include "entities/player.hpp"
 #include "utilities/vector2D.hpp"
 #include "systems/collisions.hpp"
+#include "game/game_config.hpp"
 #include <SDL.h>
 #include <vector>
 
@@ -45,6 +46,8 @@ void updateProjectile(std::vector<Projectile>& projectiles, float deltaTime){
 
         projectile.position.y += projectile.speed * deltaTime;
         projectile.collider.y= (int)projectile.position.y;
+
+        if (projectile.position.y > GameConfig::WorldHeight) projectile.alive = false;
     }
 }
 
@@ -68,6 +71,13 @@ void renderProjectile(std::vector<Projectile>& projectiles, SDL_Renderer* render
         }
 
         SDL_RenderFillRect(renderer, &projectile.collider);
+    }
+}
+
+void cleanUpProjectiles(std::vector<Projectile>& projectiles){
+    for (size_t i = 0; i < projectiles.size(); ) {
+        if (!projectiles[i].alive) projectiles.erase(projectiles.begin() + i);
+        else i++;
     }
 }
 

@@ -1,8 +1,12 @@
 #include "systems/colission_rules.hpp"
+#include "debug/debug_state.hpp"
 #include "entities/entity.hpp"
 #include "entities/projectile.hpp"
 
 ColissionResult playerVsProjectile(Entity& player, Entity& projectile){
+    #ifdef DEBUG_MODE
+    if (debug.disablePlayerColission) return {false, false};
+    #endif
     (void)player;
     (void)projectile;
 

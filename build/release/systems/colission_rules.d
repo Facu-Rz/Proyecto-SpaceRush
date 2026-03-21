@@ -51,6 +51,7 @@ build/release/systems/colission_rules.o: src/systems/colission_rules.cpp \
   C:/msys64/clang64/include/SDL2/SDL_version.h \
   C:/msys64/clang64/include/SDL2/SDL_locale.h \
   C:/msys64/clang64/include/SDL2/SDL_misc.h \
+  include/debug/debug_state.hpp include/core/layout.hpp \
   include/entities/projectile.hpp
 include/systems/colission_rules.hpp:
 include/systems/collisions.hpp:
@@ -106,4 +107,6 @@ C:/msys64/clang64/include/SDL2/SDL_timer.h:
 C:/msys64/clang64/include/SDL2/SDL_version.h:
 C:/msys64/clang64/include/SDL2/SDL_locale.h:
 C:/msys64/clang64/include/SDL2/SDL_misc.h:
+include/debug/debug_state.hpp:
+include/core/layout.hpp:
 include/entities/projectile.hpp:
