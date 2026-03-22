@@ -1,4 +1,4 @@
-#include "core/ui.hpp"
+#include "core/ui/ui.hpp"
 #include "core/layout.hpp"
 #include "platform/sdl/graphics.hpp"
 #include "debug/debug_state.hpp"

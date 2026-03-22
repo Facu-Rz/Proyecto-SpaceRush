@@ -1,0 +1,15 @@
+# Objetos y dependencias
+*.o
+*.d
+
+# Ejecutables
+*.exe
+SpaceRush
+SpaceRush_Debug
+
+# Carpetas de compilación
+build/
+bin/
+
+# Editor
+.vscode

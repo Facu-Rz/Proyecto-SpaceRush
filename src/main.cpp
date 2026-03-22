@@ -1,7 +1,7 @@
 #include "core/input.hpp"
 #include "core/project_path.hpp"
 #include "core/time.hpp"
-#include "core/ui.hpp"
+#include "core/ui/ui.hpp"
 #include "entities/player.hpp"
 #include "entities/projectile.hpp"
 #include "platform/sdl/graphics.hpp"
